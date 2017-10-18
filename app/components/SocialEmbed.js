@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const apiKey = '<see-message-in-FE-chat-channel>';
+const apiKey = '40183719bff3a2086c3988';
 
 export function Input({ onClear, ...props }) {
     console.log('window', window.getSelection)
@@ -59,10 +59,12 @@ export class Container extends React.Component {
     }
 
     render() {
-        console.log('in container')
+        console.log('in container', this.props)
         return (
         <SocialEmbed
             onChange={e => {
+            e.stopPropagation();
+            
             const contentUri = e.target.value;
             this.props.onChange(contentUri);
             this.loadContent(contentUri);
@@ -88,7 +90,7 @@ export class Container extends React.Component {
 const Block = (Component) => ({ node, editor }) => {
         const onChange = (contentUri) => editor.change(c => c.setNodeByKey(node.key, { data: { contentUri } }));
         const value = node.data.get('contentUri');
-        return <Component onChange={onChange} value={value} />;
+        return <Component key={node.key} onChange={onChange} value={value} />;
 }
 
 export default Block;

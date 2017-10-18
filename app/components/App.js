@@ -1,6 +1,7 @@
 import React from 'react'
 import { Editor } from 'slate-react'
-import { State } from 'slate'
+import { State, Change, Block } from 'slate'
+import { Menu, Icon } from 'semantic-ui-react'
 
 import SlateEditor from './slateEditor/SlateEditor'
 
@@ -9,21 +10,28 @@ const initialState = State.fromJSON({
         nodes: [
         {
             kind: 'block',
-            type: 'paragraph',
-            nodes: [
-            {
-                kind: 'text',
-                ranges: [
+            type: 'Paragraph',
+            "nodes": [
                 {
-                    text: 'A line of text in a paragraph.'
+                    "kind": "text",
+                    "ranges": [
+                        {
+                        "text": "dude paragraph"
+                        }
+                    ]
                 }
-                ]
-            }
-            ]
+              ]
+        },
+        {
+            kind: 'block',
+            type: 'SocialEmbed',
+            isVoid: true
         }
         ]
     }
 })
+
+
 
 // Define our app...
 class App extends React.Component {
@@ -31,6 +39,7 @@ class App extends React.Component {
         super(props);
         this.state = { state: initialState };
         this.onChange = this.onChange.bind(this)
+        this.addBlock = this.addBlock.bind(this)
     }
     // On change, update the app's React state with the new editor state.
     onChange({ state }) {
@@ -38,14 +47,51 @@ class App extends React.Component {
         this.setState({ state })
     }
 
+    addBlock(type, state) {
+        console.log('adding block', type, state)
+        const { state: slateState } = state
+        const blockInfo = {
+            data: {},
+            isVoid: true,
+            type: type
+        }
+        if (type === 'Paragraph'){
+            blockInfo.nodes = [
+                {
+                    "kind": "text",
+                    "ranges": [
+                        {
+                        "text": "dude paragraph"
+                        }
+                    ]
+                }
+              ];
+              blockInfo.isVoid = false;
+        }
+        const newState = slateState.change()
+            .insertBlock(Block.create(blockInfo))
+        console.log(newState)
+        this.onChange(newState)
+    }
+
     // Render the editor.
     render() {
         console.log('state then slate state', this.state, this.state.state.toJS())
         return (
-            <SlateEditor
-                slateState={this.state.state}
-                onChange={this.onChange}
-            />
+            <div>
+                <Menu vertical>
+                    <Menu.Item name='social-embed' active={true} onClick={() => this.addBlock('SocialEmbed', this.state)}>
+                        Add social embed
+                    </Menu.Item>
+                    <Menu.Item name='paragraph' active={true} onClick={() => this.addBlock('Paragraph', this.state)}>
+                        Add paragraph
+                    </Menu.Item>
+                </Menu>
+                <SlateEditor
+                    slateState={this.state.state}
+                    onChange={this.onChange}
+                />
+            </div>
         )
     }
 

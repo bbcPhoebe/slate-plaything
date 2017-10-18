@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Block renders a container 1`] = `
+<Container
+  onChange={[Function]}
+  value="1"
+>
+  <SocialEmbed
+    clear={[Function]}
+    content=""
+    contentUri="1"
+    error={false}
+    onChange={[Function]}
+  >
+    <div
+      className="igm-social-embed block-container "
+    >
+      <Input
+        className="igm-social-embed__uri igm-input"
+        onChange={[Function]}
+        onClear={[Function]}
+        onClick={[Function]}
+        placeholder="For example https://twitter.com/EricHolthaus/status/918197423159341056"
+        type="text"
+        value="1"
+      >
+        <div
+          className="igm-input"
+        >
+          <span
+            className="igm-input--control"
+          >
+            <input
+              className="igm-social-embed__uri igm-input"
+              onChange={[Function]}
+              onClick={[Function]}
+              placeholder="For example https://twitter.com/EricHolthaus/status/918197423159341056"
+              type="text"
+              value="1"
+            />
+          </span>
+          <button
+            className="igm-input--clear"
+            onClick={[Function]}
+          >
+            ×
+          </button>
+        </div>
+      </Input>
+      <div
+        className="igm-social-embed__content"
+        dangerouslySetInnerHTML={
+          Object {
+            "__html": "",
+          }
+        }
+      />
+    </div>
+  </SocialEmbed>
+</Container>
+`;

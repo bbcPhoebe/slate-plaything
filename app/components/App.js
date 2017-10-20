@@ -25,8 +25,35 @@ const initialState = State.fromJSON({
         {
             kind: 'block',
             type: 'SocialEmbed',
-            isVoid: true
+            isVoid: true,
+            readOnly: true
         }
+        // {
+        //     kind: 'block',
+        //     type: 'SocialEmbedTest',
+        //     "nodes": [
+                
+        //         {
+        //             kind: 'block',
+        //             type: 'Input',
+        //             "nodes": [
+        //                 {
+        //                     "kind": "text",
+        //                     "ranges": [
+        //                         {
+        //                         "text": "dude social and input"
+        //                         }
+        //                     ]
+        //                 }
+        //               ]
+        //         },
+        //         {
+        //             kind: 'block',
+        //             type: 'MediaContainer',
+        //             isVoid: true
+        //         }
+        //       ]
+        // }
         ]
     }
 })
@@ -52,11 +79,9 @@ class App extends React.Component {
         const { state: slateState } = state
         const blockInfo = {
             data: {},
-            isVoid: true,
-            type: type
-        }
-        if (type === 'Paragraph'){
-            blockInfo.nodes = [
+            isVoid: false,
+            type: type,
+            "nodes": [
                 {
                     "kind": "text",
                     "ranges": [
@@ -65,8 +90,11 @@ class App extends React.Component {
                         }
                     ]
                 }
-              ];
-              blockInfo.isVoid = false;
+              ]
+        }
+        if (type === 'SocialEmbed'){
+
+            
         }
         const newState = slateState.change()
             .insertBlock(Block.create(blockInfo))

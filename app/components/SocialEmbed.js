@@ -25,7 +25,6 @@ export function SocialEmbed({ onChange, content, contentUri, clear, loading, err
             * and the update does complete. Really that should be handled at the block level below
             * but not figured out how to do that yet
             */
-            onClick={(e) => e.stopPropagation()}
             onClear={clear}
             value={contentUri}
         />
@@ -90,6 +89,7 @@ export class Container extends React.Component {
 const Block = (Component) => ({ node, editor }) => {
         const onChange = (contentUri) => editor.change(c => c.setNodeByKey(node.key, { data: { contentUri } }));
         const value = node.data.get('contentUri');
+        console.log('in social embed getting slatestate', editor.getState().toJS())
         return <Component key={node.key} onChange={onChange} value={value} />;
 }
 
